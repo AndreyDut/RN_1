@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import firestore from '@react-native-firebase/firestore';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -21,7 +22,7 @@ function App(): JSX.Element {
     const fetchImgs = async () => {
       console.log("photos");
       // let photos = await readData("images/all");
-      const usersCollection = firestore().collection('images');
+      const usersCollection = await firestore().collection('images').get();
       console.log(usersCollection);
     }
     fetchImgs()
