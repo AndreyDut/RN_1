@@ -1,15 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
+  Alert,
   SafeAreaView,
   StatusBar,
-  StyleSheet,
-  Text,
-  View,
+
   useColorScheme,
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import firestore from '@react-native-firebase/firestore';
+import Post from './src/View/Post/Post';
+import axios from "axios"
+
+
+interface Provider {
+  id: number;
+  title: string;
+  body: string;
+}
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -18,52 +25,28 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  useEffect(() => {
-    const fetchImgs = async () => {
-      console.log("photos");
-      // let photos = await readData("images/all");
-      const usersCollection = await firestore().collection('images').get();
-      console.log(usersCollection);
-    }
-    fetchImgs()
-  }, []);
+  const [posts, setPosts] = React.useState<Provider[]>([]);
 
-  console.log(23424);
+  React.useEffect(() => {
+    axios.get("https://jsonplaceholder.typicode.com/posts").then(({data}) => {
+      console.log(data);
+      
+      setPosts(data);
+    }).catch(err => {
+      console.log(err);
+      Alert.alert("Ошибка получение статей");
+    })
+  },[])
+
+
 
   return (
-    <SafeAreaView style={styles.sectionContainer}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <View style={styles.viewStyle}>
-        <Text style={styles.textStyle}>STAR GATE</Text>
-      </View>
+    <SafeAreaView>
+      {posts.map(post => (<Post key={post.id} title={post.title} body={post.body}/>))}
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    flex: 1,
-  },
-  viewStyle: {
-    backgroundColor: '#30d0fe',
-    height: 116,
-    justifyContent: 'center',
-    paddingLeft: 22,
-    paddingTop: 71,
-    shadowColor: 'black',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.2,
-    elevation: 2,
-    position: 'relative',
-  },
-  textStyle: {
-    fontSize: 28,
-    fontWeight: '600',
-    color: '#fff',
-  },
-});
-
 export default App;
+
