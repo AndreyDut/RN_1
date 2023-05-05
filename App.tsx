@@ -12,7 +12,7 @@ import Post from './src/View/Post/Post';
 import axios from "axios"
 
 
-interface Provider {
+interface PostIn {
   id: number;
   title: string;
   body: string;
@@ -25,7 +25,7 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const [posts, setPosts] = React.useState<Provider[]>([]);
+  const [posts, setPosts] = React.useState<PostIn[]>([]);
 
   React.useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/posts").then(({data}) => {
