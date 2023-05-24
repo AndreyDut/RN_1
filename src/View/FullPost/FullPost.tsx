@@ -38,10 +38,11 @@ const PostDate = styled.Text`
 }
   
 
-function FullPost({id, goBack}: {id: number, goBack: () => void} ): JSX.Element {
+function FullPost({route ,navigation}: {navigation: any, route: any} ): JSX.Element {
 
     const [post, setPost] = React.useState<PostIn | null>(null);
     const [isLoad, setIsLoad] = React.useState<boolean>(false);
+    const { id } = route.params;
 
     const fetchPost = () => {
         setIsLoad(true)
@@ -68,11 +69,11 @@ function FullPost({id, goBack}: {id: number, goBack: () => void} ): JSX.Element 
         <Text style={styles.loadText}>Loading...</Text>
     </View>
   }
-  
+
 
   return (
     <>
-        <BackButton onPress={goBack} />
+        <BackButton onPress={() => navigation.goBack()} />
 
     <WrapFullPost>
 
