@@ -5,7 +5,7 @@ import FullPost from './FullPost/FullPost';
 
 const Stack = createNativeStackNavigator();
 
-const Navigation = ({selectPost}: {selectPost: number | null}) => {
+const Navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>

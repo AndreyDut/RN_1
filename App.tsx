@@ -41,14 +41,11 @@ function App(): JSX.Element {
   };
 
 
-  const [selectPost, setSelectPost] = React.useState<number | null>(null);
-
-
   return (
     // <ScrollView>a
     <SafeAreaView>
       <WrapApp>
-        <Navigation selectPost={selectPost}/>
+        <Navigation/>
         {/* {selectPost ? <FullPost id={selectPost} goBack={goBack}/>
         :<Posts} */}
       {/* {posts.map(post => (<Post key={post.id} title={post.title} body={post.body}/>))} */}
