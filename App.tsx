@@ -1,34 +1,20 @@
 import React from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  FlatList,
   SafeAreaView,
-  ScrollView,
   StatusBar,
-
-  StyleSheet,
-
-  Text,
-
-  View,
-
   useColorScheme,
-  RefreshControl,
-  TouchableOpacity,
-  Pressable 
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import Post from './src/View/Post/Post';
-import axios from "axios"
+
 import styled from 'styled-components/native';
-import FullPost from './src/View/FullPost/FullPost';
+
 import Navigation from './src/View/Navigation';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
 const WrapApp = styled.View`
-    /* width: 100%; */
+    flex: 1;
 `;
 
 
@@ -42,17 +28,14 @@ function App(): JSX.Element {
 
 
   return (
-    // <ScrollView>a
-    <SafeAreaView>
-      <WrapApp>
-        <Navigation/>
-        {/* {selectPost ? <FullPost id={selectPost} goBack={goBack}/>
-        :<Posts} */}
-      {/* {posts.map(post => (<Post key={post.id} title={post.title} body={post.body}/>))} */}
+    <WrapApp>
+    <SafeAreaProvider>
+
+      <Navigation/>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      </WrapApp>
-    </SafeAreaView>
-    // </ScrollView>
+
+    </SafeAreaProvider>
+    </WrapApp>
   );
 }
 
